@@ -1,0 +1,10 @@
+.advice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 60%;
+}
+.advice{
+    width: 100%;
+    text-align: center;
+}
