@@ -1,32 +1,26 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./generator.css";
 
-export default class Generator extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      URL: "https://api.adviceslip.com/advice",
-      advice: "need Advice? Click here",
-    };
-
-    this.getAdviceHandler = this.getAdviceHandler.bind(this);
-  }
-
-  getAdviceHandler() {
-    fetch(this.state.URL)
+export default function Generator() {
+  const [advice, setAdvice] = useState("need Advice? Click here");
+  const url = "https://api.adviceslip.com/advice";
+  const getAdviceHandler = () => {
+    fetch(url)
       .then((respone) => {
         return respone.json();
       })
       .then((response) => {
-        this.setState({ advice: response.slip.advice });
+        setAdvice(response.slip.advice);
+      })
+      .catch((error) => {
+        setAdvice("Sorry try again :(");
       });
-  }
-
-  render() {
-    return (
-      <div className="advice-container">
-        <div className="advice" onClick={this.getAdviceHandler}>{this.state.advice}</div>
+  };
+  return (
+    <div className="advice-container">
+      <div className="advice" onClick={getAdviceHandler}>
+        {advice}
       </div>
-    );
-  }
+    </div>
+  );
 }
