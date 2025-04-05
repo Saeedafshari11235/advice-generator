@@ -7,7 +7,6 @@ export default class Generator extends Component {
     this.state = {
       URL: "https://api.adviceslip.com/advice",
       advice: "need Advice? Click here",
-      hidden: false,
     };
 
     this.getAdviceHandler = this.getAdviceHandler.bind(this);
@@ -19,11 +18,7 @@ export default class Generator extends Component {
         return respone.json();
       })
       .then((response) => {
-        this.setState({ advice: response.slip.advice, hidden: true });
-
-        setTimeout(() => {
-          this.setState({ hidden: false });
-        }, 120000);
+        this.setState({ advice: response.slip.advice });
       });
   }
 
